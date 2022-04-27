@@ -56,7 +56,7 @@ const Editor = (props) => {
                             <input
                                 name="interestRate"
                                 type="range"
-                                min="0" max="100"
+                                min="1" max="100"
                                 value={currentItem.interestRate}
                                 onChange={handleChange}
                                 step="1"/>
@@ -64,7 +64,7 @@ const Editor = (props) => {
                             <input
                                 name="maximumLoan"
                                 type="range"
-                                min="0" max="1000000"
+                                min="1" max="1000000"
                                 value={currentItem.maximumLoan}
                                 onChange={handleChange}
                                 step="1000"/>
@@ -72,7 +72,7 @@ const Editor = (props) => {
                             <input
                                 name="minimumDown"
                                 type="range"
-                                min="0" max="1000000"
+                                min="1" max="1000000"
                                 value={currentItem.minimumDown}
                                 onChange={handleChange}
                                 step="100"/>

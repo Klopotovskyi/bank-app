@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {useHttp} from "../hooks/http.hook";
 import BankCard from "../Component/bankCard";
 import Editor, {DEFAULT_BANK_ITEM} from "../Component/Editor";
-import MortgageCalculatorPage from "./MortgageCalculatorPage";
 
 
 const BanksManagementPage = () => {
@@ -12,12 +11,9 @@ const BanksManagementPage = () => {
 
     const {request} = useHttp();
 
-    // Controllers
-
     const loadBanksList = async () => {
         try {
-            const loadedBanksList = await request('api/banks', 'GET', null);
-            setBankList(loadedBanksList);
+            return await request('api/banks', 'GET', null);
         } catch (e) {
         }
     };
@@ -25,7 +21,6 @@ const BanksManagementPage = () => {
     const deleteItemFromBase = async (id) => {
         try {
             const deletedItem = await request(`api/banks/${id}`, 'DELETE', null);
-            await loadBanksList();
         } catch (e) {
         }
     };
@@ -33,7 +28,6 @@ const BanksManagementPage = () => {
     const addItemToBase = async (i) => {
         try {
             const addedItem = await request(`api/banks`, 'POST', {...i});
-            await loadBanksList();
         } catch (e) {
         }
     };
@@ -41,13 +35,14 @@ const BanksManagementPage = () => {
     const updateItem = async (i) => {
         try {
             const updatedItem = await request(`api/banks`, 'put', {...i});
-            await loadBanksList();
         } catch (e) {
         }
     };
 
     useEffect(() => {
-        loadBanksList();
+        loadBanksList().then((value) => {
+            setBankList(value)
+        });
     }, []);
 
     const addNewItem = () => {
@@ -59,14 +54,26 @@ const BanksManagementPage = () => {
     }
 
     const deleteItem = (id) => {
-        deleteItemFromBase(id);
+        deleteItemFromBase(id).then(() => {
+            loadBanksList().then((value) => {
+                setBankList(value)
+            })
+        });
     }
 
     const saveItem = (item) => {
         if (item._id) {
-            updateItem(item)
+            updateItem(item).then(() => {
+                loadBanksList().then((value) => {
+                    setBankList(value)
+                })
+            })
         } else {
-            addItemToBase(item);
+            addItemToBase(item).then(() => {
+                loadBanksList().then((value) => {
+                    setBankList(value)
+                })
+            });
         }
         setVisible(false);
     }
