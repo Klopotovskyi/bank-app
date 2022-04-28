@@ -43,8 +43,8 @@ const MortgageCalculatorPage = () => {
             alert(`Selected Down payment must be greater than or equal to ${Number(selectedBank.minimumDown)}`)
             return
         }
-        const result = (initialLoan * (selectedBank.interestRate / 12) * (1 + selectedBank.interestRate / 12) ** Number(selectedBank.loanTerm)) /
-            ((1 + selectedBank.interestRate / 12) ** Number(selectedBank.loanTerm) - 1);
+        const result = ((initialLoan - downPayment) * (selectedBank.interestRate/100 / 12) * (1 + selectedBank.interestRate /100/ 12) ** Number(selectedBank.loanTerm)) /
+            ((1 + selectedBank.interestRate/100 / 12) ** Number(selectedBank.loanTerm) - 1) ;
         setMonthlyPayment(Math.round(result));
     }
 

@@ -11,7 +11,7 @@ const BankCard = (props)=> {
                         <p>{`Іnterest Rate, %: ${props.item.interestRate}`}</p>
                         <p>{`Maximum Loan, $: ${props.item.maximumLoan}`}</p>
                         <p>{`Minimum Down, $: ${props.item.minimumDown}`}</p>
-                        <p>{`Loan Term, $: ${props.item.loanTerm} months`}</p>
+                        <p>{`Loan Term: ${props.item.loanTerm} months`}</p>
                     </div>
                     <div className="card-action">
                         <button className={"waves-effect waves-light btn"} onClick={() => {props.editItem(props.item)}}> Edit</button>
